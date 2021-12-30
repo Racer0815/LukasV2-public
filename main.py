@@ -9,7 +9,8 @@ async def on_ready():
     print(f"logged in as {client.user}")
     channel = client.get_channel(922861978484097056)
     await channel.send(f'Bot erfolgreich eingeloggt als {client.user}')
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='diesem Server'))
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name='Bann den Admin :)'))
+
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -17,25 +18,24 @@ async def on_raw_reaction_add(payload):
         pass
 
     else:
-
         with open('reactrole.json') as react_file:
-
             data = json.load(react_file)
             for x in data:
-                if x['emoji'] == payload.emoji.name and x['message_id'] == payload.message_id:
-                    role = discord.utils.get(client.get_guild(payload.guild_id).roles, id=x['role_id'])
+                if x['emoji'] == payload.emoji.name:
+                    role = discord.utils.get(client.get_guild(
+                        payload.guild_id).roles, id=x['role_id'])
 
-                await payload.member.add_roles(role)
+                    await payload.member.add_roles(role)
+
 
 @client.event
 async def on_raw_reaction_remove(payload):
-
-        with open('reactrole.json') as react_file:
-
-            data = json.load(react_file)
-            for x in data:
-                if x['emoji'] == payload.emoji.name and x['message_id'] == payload.message_id:
-                    role = discord.utils.get(client.get_guild(payload.guild_id).roles, id=x['role_id'])
+    with open('reactrole.json') as react_file:
+        data = json.load(react_file)
+        for x in data:
+            if x['emoji'] == payload.emoji.name:
+                role = discord.utils.get(client.get_guild(
+                    payload.guild_id).roles, id=x['role_id'])
 
                 await client.get_guild(payload.guild_id).get_member(payload.user_id).remove_roles(role)
 
@@ -60,7 +60,6 @@ async def reactrole(ctx, emoji, role: discord.Role,*,message):
         data.append(new_react_role)
     with open('reactrole.json','w') as j:
         json.dump(data,j,indent=4)
-
 
 
 

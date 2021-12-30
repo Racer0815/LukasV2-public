@@ -4,5 +4,23 @@
         "role_id": 922865051948449822,
         "emoji": "\u2705",
         "message_id": 925827344730554368
+    },
+    {
+        "role_name": "gaming",
+        "role_id": 922874946437398568,
+        "emoji": "\ud83c\udfae",
+        "message_id": 926109895072305252
+    },
+    {
+        "role_name": "coding",
+        "role_id": 922873652083556382,
+        "emoji": "\u2328\ufe0f",
+        "message_id": 926109895072305252
+    },
+    {
+        "role_name": "hilfe",
+        "role_id": 922875110535340103,
+        "emoji": "\u2764\ufe0f",
+        "message_id": 926109895072305252
     }
 ]
