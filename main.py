@@ -1,8 +1,11 @@
 import discord
 import json
+import os
+from dotenv import load_dotenv
 from discord.ext import commands
 
-client = commands.Bot(command_prefix="!",intents=discord.Intents.all())
+client = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+
 
 @client.event
 async def on_ready():
@@ -41,8 +44,7 @@ async def on_raw_reaction_remove(payload):
 
 
 @client.command()
-async def reactrole(ctx, emoji, role: discord.Role,*,message):
-
+async def reactrole(ctx, emoji, role: discord.Role, *, message):
     emb = discord.Embed(description=message)
     msg = await ctx.channel.send(embed=emb)
     await msg.add_reaction(emoji)
@@ -51,18 +53,16 @@ async def reactrole(ctx, emoji, role: discord.Role,*,message):
         data = json.load(json_file)
 
         new_react_role = {
-            'role_name':role.name,
-            'role_id':role.id,
-            'emoji':emoji,
-            'message_id':msg.id
+            'role_name': role.name,
+            'role_id': role.id,
+            'emoji': emoji,
+            'message_id': msg.id
         }
 
         data.append(new_react_role)
-    with open('reactrole.json','w') as j:
-        json.dump(data,j,indent=4)
+    with open('reactrole.json', 'w') as j:
+        json.dump(data, j, indent=4)
 
-
-
-
-
-client.run("token")
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
+client.run(TOKEN)
